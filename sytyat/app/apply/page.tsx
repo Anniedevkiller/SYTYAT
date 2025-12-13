@@ -28,8 +28,8 @@ const programs = [
     scholarshipPrice: "₦15,000",
     hasScholarship: true,
     description: "11 specialization tracks for beginners and career switchers",
-    applyLink: "https://applylink/bootcamp",
-    payLink: "https://paylink/bootcamp",
+    applyLink: "https://forms.gle/3Ps6yd5PSZypHeWe8",
+    payLink: "https://paystack.com/buy/bootcamp-regular-fee-rfnmrk",
   },
   {
     id: "shortcourse",
@@ -41,8 +41,8 @@ const programs = [
     scholarshipPrice: null,
     hasScholarship: false,
     description: "Fast, practical programs to build a single skill quickly",
-    applyLink: "https://applylink/shortcourses",
-    payLink: "https://paylink/shortcourses",
+    applyLink: "https://forms.gle/VMhhALCtXyYCaCFYA",
+    payLink: "https://paystack.com/buy/short-course-fee-qfiiiz",
   },
   {
     id: "kids",
@@ -54,8 +54,8 @@ const programs = [
     scholarshipPrice: "₦15,000",
     hasScholarship: true,
     description: "Creative, fun tech learning for young minds",
-    applyLink: "https://applylink/kids",
-    payLink: "https://paylink/kids",
+    applyLink: "https://forms.gle/PthYLWdBgUBZ9G8K7",
+    payLink: "https://paystack.com/buy/kids--teens-regular-fee-pdkmuq",
   },
 ]
 

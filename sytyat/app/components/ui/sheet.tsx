@@ -20,7 +20,7 @@ const SheetContext = React.createContext<SheetContextValue | undefined>(
   undefined
 )
 
-function Sheet({ open = false, onOpenChange, children }: SheetProps) {
+function Sheet({ open = false, onOpenChange = () => {}, children }: SheetProps) {
   return (
     <SheetContext.Provider value={{ open, onOpenChange }}>
       {children}
@@ -38,9 +38,9 @@ const SheetTrigger = React.forwardRef<
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, {
       ...props,
-      onClick: (e: React.MouseEvent) => {
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         context.onOpenChange(true)
-        props.onClick?.(e)
+        props.onClick?.(e as React.MouseEvent<HTMLButtonElement>)
       },
     } as any)
   }

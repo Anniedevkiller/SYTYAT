@@ -247,7 +247,7 @@ export default function ProgramsPage() {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-border">
                 <Button asChild size="lg" className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground group">
-                  <Link href="/apply?program=shortcourse" className="flex items-center">
+                  <Link href="https://forms.gle/QUpuRb6qn5JMCq9d6" className="flex items-center">
                     Register for Short Course
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
@@ -258,7 +258,7 @@ export default function ProgramsPage() {
                   variant="outline"
                   className="flex-1 border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent"
                 >
-                  <Link href="/apply?program=shortcourse&action=pay">Make Payment</Link>
+                  <Link href="https://paystack.com/buy/short-course-fee-qfiiiz">Make Payment</Link>
                 </Button>
               </div>
             </CardContent>
@@ -335,13 +335,13 @@ export default function ProgramsPage() {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-border">
                 <Button asChild size="lg" className="flex-1 bg-foreground hover:bg-foreground/90 text-background group">
-                  <Link href="/apply?program=kids" className="flex items-center">
+                  <Link href="https://forms.gle/kNaJimMxqdwWM4ze9" className="flex items-center">
                     Apply for Kids Program
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="flex-1 bg-transparent">
-                  <Link href="/apply?program=kids&action=pay">Make Payment</Link>
+                  <Link href="https://paystack.com/buy/kids--teens-regular-fee-pdkmuq">Make Payment</Link>
                 </Button>
               </div>
             </CardContent>
