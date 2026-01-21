@@ -1,14 +1,14 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || "re_123");
 
 export async function sendScholarshipConfirmationEmail(email: string, fullName: string, program: string) {
-    try {
-        const { data, error } = await resend.emails.send({
-            from: 'SYTYAT <onboarding@resend.dev>',
-            to: [email],
-            subject: 'Application Received - SYTYAT Scholarship',
-            html: `
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'SYTYAT <onboarding@resend.dev>',
+      to: [email],
+      subject: 'Application Received - SYTYAT Scholarship',
+      html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; rounded-xl; shadow-sm;">
           <h2 style="color: #2563eb; margin-bottom: 16px;">Application Received!</h2>
           <p>Hello <strong>${fullName}</strong>,</p>
@@ -26,27 +26,27 @@ export async function sendScholarshipConfirmationEmail(email: string, fullName: 
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">&copy; 2025 SYTYAT. All rights reserved.</p>
         </div>
       `,
-        });
+    });
 
-        if (error) {
-            console.error('Resend Error:', error);
-            return { success: false, error };
-        }
-
-        return { success: true, data };
-    } catch (err) {
-        console.error('Email caught error:', err);
-        return { success: false, error: err };
+    if (error) {
+      console.error('Resend Error:', error);
+      return { success: false, error };
     }
+
+    return { success: true, data };
+  } catch (err) {
+    console.error('Email caught error:', err);
+    return { success: false, error: err };
+  }
 }
 
 export async function sendPaymentConfirmationEmail(email: string, fullName: string, program: string, amount: number, reference: string) {
-    try {
-        const { data, error } = await resend.emails.send({
-            from: 'SYTYAT <onboarding@resend.dev>',
-            to: [email],
-            subject: 'Enrollment Confirmed - SYTYAT',
-            html: `
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'SYTYAT <onboarding@resend.dev>',
+      to: [email],
+      subject: 'Enrollment Confirmed - SYTYAT',
+      html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; rounded-xl; shadow-sm;">
           <h2 style="color: #10b981; margin-bottom: 16px;">Payment Successful!</h2>
           <p>Hello <strong>${fullName}</strong>,</p>
@@ -65,16 +65,16 @@ export async function sendPaymentConfirmationEmail(email: string, fullName: stri
           <p style="color: #9ca3af; font-size: 12px; text-align: center;">&copy; 2025 SYTYAT. All rights reserved.</p>
         </div>
       `,
-        });
+    });
 
-        if (error) {
-            console.error('Resend Error:', error);
-            return { success: false, error };
-        }
-
-        return { success: true, data };
-    } catch (err) {
-        console.error('Email caught error:', err);
-        return { success: false, error: err };
+    if (error) {
+      console.error('Resend Error:', error);
+      return { success: false, error };
     }
+
+    return { success: true, data };
+  } catch (err) {
+    console.error('Email caught error:', err);
+    return { success: false, error: err };
+  }
 }
