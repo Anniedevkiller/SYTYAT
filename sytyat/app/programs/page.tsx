@@ -30,20 +30,40 @@ import {
   Building,
   Target,
   Sparkles,
+  Database,
+  Cpu,
+  Cloud,
+  Link as LinkIcon,
+  Gamepad2,
+  CodeXml,
+  Layout,
+  Megaphone,
+  Server,
 } from "lucide-react"
 
 const bootcampTracks = [
   { icon: Code, name: "Frontend Development", color: "bg-blue-500/10 text-blue-500" },
-  { icon: Code, name: "Backend Development", color: "bg-emerald-500/10 text-emerald-500" },
+  { icon: Database, name: "Backend Development", color: "bg-emerald-500/10 text-emerald-500" },
   { icon: Palette, name: "UI/UX Design", color: "bg-pink-500/10 text-pink-500" },
   { icon: Briefcase, name: "Product Management", color: "bg-violet-500/10 text-violet-500" },
   { icon: BarChart, name: "Data Analysis", color: "bg-amber-500/10 text-amber-500" },
   { icon: Shield, name: "DevOps", color: "bg-red-500/10 text-red-500" },
-  { icon: Headphones, name: "Virtual Assistance & Tech Support", color: "bg-cyan-500/10 text-cyan-500" },
-  { icon: Video, name: "Content & Video Editing", color: "bg-orange-500/10 text-orange-500" },
+  { icon: Headphones, name: "Virtual Assistance", color: "bg-cyan-500/10 text-cyan-500" },
+  { icon: TrendingUp, name: "Digital Marketing", color: "bg-lime-500/10 text-lime-500" },
+  { icon: Video, name: "Content / Video Editing", color: "bg-orange-500/10 text-orange-500" },
   { icon: CheckCircle2, name: "Quality Assurance (QA)", color: "bg-teal-500/10 text-teal-500" },
   { icon: Smartphone, name: "Mobile Development", color: "bg-indigo-500/10 text-indigo-500" },
-  { icon: TrendingUp, name: "Sales & Digital Marketing", color: "bg-lime-500/10 text-lime-500" },
+  { icon: Lock, name: "Cybersecurity", color: "bg-slate-500/10 text-slate-500" },
+  { icon: Zap, name: "No-Code Development", color: "bg-yellow-500/10 text-yellow-500" },
+  { icon: PenTool, name: "Technical Writing", color: "bg-rose-500/10 text-rose-500" },
+  { icon: Cpu, name: "Artificial Intelligence", color: "bg-purple-500/10 text-purple-500" },
+  { icon: Cloud, name: "Cloud Computing", color: "bg-sky-500/10 text-sky-500" },
+  { icon: LinkIcon, name: "Blockchain Development", color: "bg-indigo-500/10 text-indigo-500" },
+  { icon: Gamepad2, name: "Game Development", color: "bg-green-500/10 text-green-500" },
+  { icon: CodeXml, name: "Data Science", color: "bg-blue-500/10 text-blue-500" },
+  { icon: Layout, name: "Graphics Design", color: "bg-pink-500/10 text-pink-500" },
+  { icon: Megaphone, name: "Social Media Management", color: "bg-orange-500/10 text-orange-500" },
+  { icon: Server, name: "Database Administration", color: "bg-slate-500/10 text-slate-500" },
 ]
 
 const shortCourses = [
@@ -78,7 +98,7 @@ const bootcampBenefits = [
 
 export default function ProgramsPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 sm:pt-48 sm:pb-32 overflow-hidden bg-foreground text-background">
         <div className="absolute inset-0 z-0">
