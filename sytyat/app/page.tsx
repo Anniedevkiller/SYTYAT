@@ -38,25 +38,25 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-28 sm:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 pointer-events-none" />
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative min-h-[95vh] flex items-center pt-32 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-accent/10 to-secondary/15 pointer-events-none" />
+        <div className="absolute top-20 right-10 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
+        <div className="absolute bottom-10 left-10 w-80 h-80 bg-accent/20 rounded-full blur-[100px] pointer-events-none animate-pulse" />
 
         <div className="container mx-auto relative">
           <div className="text-center max-w-4xl mx-auto">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 animate-fadeInUp">
               <Sparkles className="w-4 h-4 text-primary" />
               <span className="text-xs sm:text-sm text-primary font-medium">
-                Bivy Space{"'"}s Tech Education Program
+                Bivy Tech Education Program
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fadeInUp text-balance leading-tight">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 animate-fadeInUp text-balance leading-tight">
               Start Your Tech Career With <span className="text-primary">SYTYAT</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-muted-foreground mb-10 animate-fadeInUp max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-12 animate-fadeInUp max-w-3xl mx-auto leading-relaxed">
               Affordable, beginner-friendly tech programs designed to help you learn real skills and join the global
               tech ecosystem.
             </p>
@@ -157,7 +157,9 @@ export default function Home() {
                   <BookOpen className="w-8 h-8 text-accent" />
                 </div>
                 <CardTitle className="text-xl sm:text-2xl">Short Courses</CardTitle>
-                <CardDescription>1 Month Duration</CardDescription>
+                <CardDescription>
+                  <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20">Coming Soon</Badge>
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
@@ -168,14 +170,13 @@ export default function Home() {
                   Fast, practical programs to build a single skill quickly
                 </p>
                 <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent"
+                  disabled
+                  className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground bg-transparent opacity-50 cursor-not-allowed"
                 >
-                  <Link href="/programs#shortcourses" className="flex items-center">
-                    Explore
+                  <span className="flex items-center">
+                    Coming Soon
                     <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
+                  </span>
                 </Button>
               </CardContent>
             </Card>
@@ -187,19 +188,20 @@ export default function Home() {
                   <Users className="w-8 h-8 text-secondary-foreground" />
                 </div>
                 <CardTitle className="text-xl sm:text-2xl">Kids & Teens Tech</CardTitle>
-                <CardDescription>June – July (Summer)</CardDescription>
+                <CardDescription>
+                  <Badge variant="secondary" className="bg-secondary/20 text-secondary-foreground">Coming Soon</Badge>
+                </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl font-bold text-foreground">₦20,000</span>
-                  <Badge variant="secondary">₦15,000 scholarship</Badge>
                 </div>
                 <p className="text-sm text-muted-foreground">Ages 10-18: Creative, fun tech learning for young minds</p>
-                <Button asChild variant="outline" className="w-full bg-transparent">
-                  <Link href="/programs#kids" className="flex items-center">
-                    View Program
+                <Button disabled className="w-full bg-muted text-muted-foreground opacity-50 cursor-not-allowed">
+                  <span className="flex items-center">
+                    Coming Soon
                     <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
+                  </span>
                 </Button>
               </CardContent>
             </Card>
@@ -217,11 +219,11 @@ export default function Home() {
                   <GraduationCap className="w-10 h-10 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Scholarships Are Available</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">Bootcamp Scholarships</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    To get a scholarship price (₦15,000 for bootcamp or kids program), applicants must apply and pass
-                    the SYTYAT scholarship exam. The exam is taken online. Only successful students get the discounted
-                    fee.
+                    To get the scholarship price (₦15,000) for our intensive bootcamp, applicants must apply and pass
+                    the SYTYAT scholarship exam. The exam is taken online. Only successful students receive the
+                    discounted enrollment fee.
                   </p>
                 </div>
                 <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground shrink-0">

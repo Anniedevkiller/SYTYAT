@@ -2,13 +2,30 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, GraduationCap } from "lucide-react"
+import { Menu, ChevronDown } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/programs", label: "Programs" },
+  {
+    href: "/programs",
+    label: "Programs",
+    dropdown: [
+      { href: "/programs#bootcamp", label: "Tech Bootcamp" },
+      { href: "/programs#shortcourses", label: "Short Courses", comingSoon: true },
+      { href: "/programs#kids", label: "Kids & Teens", comingSoon: true },
+    ],
+  },
+  { href: "/scholarship", label: "Scholarships" },
   { href: "/about", label: "About" },
   { href: "/apply", label: "Apply" },
 ]
@@ -16,8 +33,10 @@ const navLinks = [
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    setIsMounted(true)
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
@@ -27,32 +46,76 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border" : "bg-background/90 backdrop-blur-sm border-b border-border/50"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border" : "bg-background/90 backdrop-blur-sm border-b border-border/50"
+        }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative">
-              <GraduationCap className="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
-              <div className="absolute -inset-1 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-            <span className="font-bold text-lg sm:text-xl tracking-tight text-foreground">SYTYAT</span>
+          <Link href="/" className="flex items-center h-full">
+            <Image
+              src="/logo.png"
+              alt="SYTYAT Logo"
+              width={200}
+              height={60}
+              className="h-14 w-auto object-contain transform translate-y-1"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-2">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative group"
-              >
-                {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </Link>
+              link.dropdown ? (
+                isMounted ? (
+                  <DropdownMenu key={link.href}>
+                    <DropdownMenuTrigger asChild>
+                      <button className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 flex items-center gap-1 group outline-none cursor-pointer">
+                        {link.label}
+                        <ChevronDown className="w-4 h-4 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" className="w-48 bg-background border-border">
+                      {link.dropdown.map((sublink) => (
+                        <DropdownMenuItem key={sublink.href} asChild>
+                          <Link
+                            href={sublink.href}
+                            className="w-full cursor-pointer hover:bg-primary/5 hover:text-primary transition-colors flex items-center justify-between gap-2"
+                          >
+                            <span>{sublink.label}</span>
+                            {sublink.comingSoon && (
+                              <Badge variant="secondary" className="text-[10px] py-0 px-1.5 h-4 bg-muted text-muted-foreground font-normal">
+                                Soon
+                              </Badge>
+                            )}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                      <div className="border-t border-border mt-1 pt-1">
+                        <DropdownMenuItem asChild>
+                          <Link href="/programs" className="w-full font-semibold cursor-pointer hover:bg-primary/5 hover:text-primary transition-colors">
+                            View All Programs
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <button key={link.href} className="px-4 py-2 text-sm font-medium text-muted-foreground flex items-center gap-1">
+                    {link.label} <ChevronDown className="w-4 h-4" />
+                  </button>
+                )
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative group"
+                >
+                  {link.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </Link>
+              )
             ))}
           </div>
 
@@ -72,45 +135,72 @@ export function Navbar() {
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0">
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-border">
-                  <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                    <GraduationCap className="w-7 h-7 text-primary" />
-                    <span className="font-bold text-lg">SYTYAT</span>
-                  </Link>
-                </div>
-                <div className="flex flex-col gap-1 p-6">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-all duration-200"
-                    >
-                      {link.label}
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-0 !bg-white !opacity-100">
+                <div className="flex flex-col h-full bg-white opacity-100">
+                  <div className="flex items-center justify-between px-6 py-6 border-b border-border bg-white opacity-100">
+                    <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+                      <Image
+                        src="/logo.png"
+                        alt="SYTYAT Logo"
+                        width={140}
+                        height={45}
+                        className="h-9 w-auto object-contain transform translate-y-1"
+                      />
                     </Link>
-                  ))}
+                  </div>
+                  <div className="flex flex-col gap-1 p-6 overflow-y-auto">
+                    <div className="text-xs font-bold text-primary/50 uppercase tracking-wider mb-2 px-4">Menu</div>
+                    {navLinks.map((link) => (
+                      <div key={link.href} className="flex flex-col">
+                        <Link
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="px-4 py-3 text-lg font-semibold text-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all duration-200 flex items-center justify-between group"
+                        >
+                          {link.label}
+                          {link.dropdown && <ChevronDown className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-transform" />}
+                        </Link>
+                        {link.dropdown && (
+                          <div className="ml-6 border-l-2 border-primary/10 pl-4 flex flex-col gap-1 mt-1 mb-2">
+                            {link.dropdown.map((subItem) => (
+                              <Link
+                                key={subItem.href}
+                                href={subItem.href}
+                                onClick={() => setIsOpen(false)}
+                                className="px-3 py-2 text-base text-muted-foreground hover:text-primary transition-colors rounded-lg hover:bg-primary/5 flex items-center justify-between"
+                              >
+                                <span>{subItem.label}</span>
+                                {subItem.comingSoon && (
+                                  <Badge variant="secondary" className="text-[10px] py-0 px-1.5 h-4 bg-muted text-muted-foreground font-normal">
+                                    Soon
+                                  </Badge>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-auto p-6 border-t border-border bg-muted/30 space-y-3">
+                    <Button
+                      asChild
+                      variant="outline"
+                      className="w-full justify-center bg-white border-border hover:bg-white hover:text-primary"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Link href="/about">About Us</Link>
+                    </Button>
+                    <Button
+                      asChild
+                      className="w-full justify-center bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Link href="/apply">Get Started</Link>
+                    </Button>
+                  </div>
                 </div>
-                <div className="mt-auto p-6 border-t border-border space-y-3">
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="w-full justify-center bg-transparent"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href="/about">About</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    className="w-full justify-center bg-primary hover:bg-primary/90"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Link href="/apply">Get Started</Link>
-                  </Button>
-                </div>
-              </div>
-            </SheetContent>
+              </SheetContent>
             </Sheet>
           </div>
         </nav>

@@ -20,7 +20,7 @@ const SheetContext = React.createContext<SheetContextValue | undefined>(
   undefined
 )
 
-function Sheet({ open = false, onOpenChange = () => {}, children }: SheetProps) {
+function Sheet({ open = false, onOpenChange = () => { }, children }: SheetProps) {
   return (
     <SheetContext.Provider value={{ open, onOpenChange }}>
       {children}
@@ -89,9 +89,9 @@ const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(
         <div
           ref={ref}
           className={cn(
-            "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out",
-            side === "right" && "right-0 top-0 h-full w-full border-l sm:max-w-sm",
-            side === "left" && "left-0 top-0 h-full w-full border-r sm:max-w-sm",
+            "fixed z-[101] gap-4 bg-white p-0 shadow-2xl transition ease-in-out duration-300",
+            side === "right" && "right-0 top-0 h-full w-[85%] sm:max-w-sm border-l",
+            side === "left" && "left-0 top-0 h-full w-[85%] sm:max-w-sm border-r",
             side === "top" && "top-0 h-auto w-full border-b",
             side === "bottom" && "bottom-0 h-auto w-full border-t",
             className
