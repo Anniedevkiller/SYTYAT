@@ -245,9 +245,10 @@ export default function ApplyPage() {
           throw new Error("Failed to get payment URL")
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Submission Error:", error)
-      alert("Something went wrong. Please try again.")
+      const errorMessage = error.response?.data?.message || "Something went wrong. Please try again."
+      alert(errorMessage)
     } finally {
       setIsLoading(false)
     }

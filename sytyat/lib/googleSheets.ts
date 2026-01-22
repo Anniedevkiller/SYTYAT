@@ -50,3 +50,29 @@ export async function appendToSheet(data: any, spreadsheetId?: string) {
         throw error
     }
 }
+
+export async function checkEmailExists(email: string, spreadsheetId?: string) {
+    try {
+        const rawKey = process.env.GOOGLE_PRIVATE_KEY || ""
+        const privateKey = rawKey.replace(/\\n/g, "\n").replace(/^"(.*)"$/, "$1").trim()
+
+        const serviceAccountAuth = new JWT({
+            email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+            key: privateKey,
+            scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        })
+
+        const targetId = spreadsheetId || process.env.GOOGLE_SHEET_ID || ""
+        const doc = new GoogleSpreadsheet(targetId, serviceAccountAuth)
+        await doc.loadInfo()
+
+        const sheet = doc.sheetsByIndex[0]
+        const rows = await sheet.getRows()
+
+        // Headers might be case-sensitive or slightly different, check 'Email' column
+        return rows.some(row => row.get("Email")?.toString().toLowerCase() === email.toLowerCase())
+    } catch (error) {
+        console.error("Error checking email existence:", error)
+        return false // Fallback to allow if check fails (safest for UX)
+    }
+}

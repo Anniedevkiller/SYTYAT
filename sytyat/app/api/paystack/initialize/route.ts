@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import axios from "axios"
+import { checkEmailExists } from "@/lib/googleSheets"
 
 export async function POST(req: Request) {
     try {
@@ -9,6 +10,15 @@ export async function POST(req: Request) {
         if (!email || !amount) {
             return NextResponse.json(
                 { message: "Email and amount are required" },
+                { status: 400 }
+            )
+        }
+
+        // Check if user already paid
+        const alreadyPaid = await checkEmailExists(email, process.env.GOOGLE_SHEET_ID_PAYMENTS)
+        if (alreadyPaid) {
+            return NextResponse.json(
+                { message: "A payment/signup already exists for this email address." },
                 { status: 400 }
             )
         }

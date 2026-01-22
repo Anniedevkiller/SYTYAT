@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { appendToSheet } from "@/lib/googleSheets"
+import { appendToSheet, checkEmailExists } from "@/lib/googleSheets"
 import { sendScholarshipConfirmationEmail } from "@/lib/email"
 
 export async function POST(req: Request) {
@@ -18,6 +18,15 @@ export async function POST(req: Request) {
         if (!email || !fullName) {
             return NextResponse.json(
                 { message: "Email and Full Name are required" },
+                { status: 400 }
+            )
+        }
+
+        // Check if user already applied
+        const alreadyApplied = await checkEmailExists(email)
+        if (alreadyApplied) {
+            return NextResponse.json(
+                { message: "You have already applied with this email address." },
                 { status: 400 }
             )
         }
