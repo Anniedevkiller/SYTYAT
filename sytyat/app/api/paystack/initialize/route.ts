@@ -16,13 +16,15 @@ export async function POST(req: Request) {
         // Paystack expects amount in Kobo (Naira * 100)
         const paystackAmount = Math.round(parseFloat(amount) * 100)
 
+        const origin = req.headers.get('origin') || new URL(req.url).origin;
+
         const response = await axios.post(
             "https://api.paystack.co/transaction/initialize",
             {
                 email,
                 amount: paystackAmount,
                 metadata,
-                callback_url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/payments/success`,
+                callback_url: `${origin}/payments/success`,
             },
             {
                 headers: {
