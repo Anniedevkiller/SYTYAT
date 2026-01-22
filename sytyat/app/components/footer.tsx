@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { GraduationCap, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
+import Image from "next/image"
 
 function Footer() {
   return (
@@ -8,13 +9,16 @@ function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="p-2 bg-background/10 rounded-lg">
-                <GraduationCap className="w-6 h-6 text-background" />
-              </div>
-              <span className="text-lg font-bold">SYTYAT</span>
+              <Image
+                src="/logo.png"
+                alt="SYTYAT Logo"
+                width={120}
+                height={40}
+                className="h-8 w-auto object-contain brightness-0 invert"
+              />
             </Link>
             <p className="text-background/70 text-sm leading-relaxed">
-              So You Think You Are a Techie? Bivy Space{"'"}s Tech Education & Talent Development Program.
+              So You Think You Are a Techie? Bivy Tech Education & Talent Development Program.
             </p>
           </div>
 
@@ -28,12 +32,12 @@ function Footer() {
               </li>
               <li>
                 <Link href="/programs#shortcourses" className="hover:text-background transition-colors">
-                  Short Courses
+                  Short Courses (Coming Soon)
                 </Link>
               </li>
               <li>
                 <Link href="/programs#kids" className="hover:text-background transition-colors">
-                  Kids & Teens Tech
+                  Kids & Teens Tech (Coming Soon)
                 </Link>
               </li>
             </ul>
@@ -53,7 +57,7 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about#scholarship" className="hover:text-background transition-colors">
+                <Link href="/scholarship" className="hover:text-background transition-colors">
                   Scholarships
                 </Link>
               </li>
@@ -84,10 +88,10 @@ function Footer() {
             © {new Date().getFullYear()} SYTYAT by Bivy Space. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-background/60">
-            <Link href="#" className="hover:text-background transition-colors">
+            <Link href="/privacy" className="hover:text-background transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="hover:text-background transition-colors">
+            <Link href="/terms" className="hover:text-background transition-colors">
               Terms of Service
             </Link>
           </div>
