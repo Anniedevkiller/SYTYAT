@@ -21,7 +21,8 @@ import {
     Brain,
     Trophy,
     Sparkles,
-    Loader2
+    Loader2,
+    XCircle
 } from "lucide-react"
 import axios from "axios"
 
@@ -176,9 +177,10 @@ const trackQuestions: Record<string, { q: string, options: string[], a: string }
 
 export default function ScholarshipExamPage() {
     const router = useRouter()
-    const [step, setStep] = useState(0) // 0: Intro, 1: Personal Info, 2: Questions, 3: Success
+    const [step, setStep] = useState(0) // 0: Intro, 1: Personal Info, 2: Questions, 3: Success/Fail
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
+    const [submissionResult, setSubmissionResult] = useState<{ passed: boolean, paymentLink?: string, feedback?: string } | null>(null)
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
@@ -275,19 +277,18 @@ export default function ScholarshipExamPage() {
         setIsLoading(true)
 
         try {
-            await axios.post("/api/scholarship/submit", {
+            const response = await axios.post("/api/scholarship/submit", {
                 ...formData,
                 track: formData.tracks.join(", "),
                 results: allResults,
-                // These are for backward compatibility if API expects single score
-                score: allResults[0].score,
-                totalQuestions: allResults[0].total,
                 program: "3-Month Tech Bootcamp",
                 flowType: "Scholarship Exam",
                 education: "N/A",
                 location: "Online",
                 gender: "N/A"
             })
+
+            setSubmissionResult(response.data)
             setStep(3)
         } catch (error: any) {
             console.error("Submission error:", error)
@@ -310,72 +311,24 @@ export default function ScholarshipExamPage() {
                     <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
                         Unlock Your <span className="text-primary">Opportunity.</span>
                     </h1>
-                    <div className="flex items-center justify-center gap-4 text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                            <Brain className="w-4 h-4 text-accent" />
-                            <span className="text-sm font-medium">Logic Based</span>
-                        </div>
-                        <div className="w-1 h-1 rounded-full bg-border" />
-                        <div className="flex items-center gap-1">
-                            <Sparkles className="w-4 h-4 text-yellow-500" />
-                            <span className="text-sm font-medium">Merit Scholarship</span>
-                        </div>
-                    </div>
                 </div>
 
-                {/* Progress Bar (Visible during Form and Questions) */}
-                {(step === 1 || step === 2) && (
-                    <div className="mb-8 relative">
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-primary transition-all duration-500 ease-out"
-                                style={{ width: `${step === 1 ? '50%' : '100%'}` }}
-                            />
-                        </div>
-                        <div className="flex justify-between mt-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                            <span>Step 1: Information</span>
-                            <span>Step 2: Assessment</span>
-                        </div>
-                    </div>
-                )}
-
-                {/* Step 0: Intro */}
+                {/* Step Content */}
                 {step === 0 && (
                     <Card className="border-2 border-primary/10 shadow-2xl bg-card/50 backdrop-blur-sm overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
                         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-accent to-primary animate-shimmer" />
                         <CardHeader className="text-center pt-10">
                             <CardTitle className="text-3xl font-bold">Ready to Start?</CardTitle>
                             <CardDescription className="text-lg">
-                                This assessment will test your basic knowledge in your chosen field.
-                                High performers qualify for a subsidized tuition of ₦15,000.
+                                This assessment will test your basic knowledge.
+                                Pass mark is 70% to qualify for the scholarship.
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="p-8 space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                        <CheckCircle2 className="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold">10 Questions</h4>
-                                        <p className="text-sm text-muted-foreground">Track-specific questions to test your foundation.</p>
-                                    </div>
-                                </div>
-                                <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 flex items-start gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                                        <Laptop className="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold">Online Only</h4>
-                                        <p className="text-sm text-muted-foreground">Can be taken on any device with internet access.</p>
-                                    </div>
-                                </div>
-                            </div>
-
                             <Button
                                 onClick={nextStep}
                                 size="lg"
-                                className="w-full h-16 text-xl font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all group"
+                                className="w-full h-16 text-xl font-bold rounded-2xl group"
                             >
                                 Get Started
                                 <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
@@ -384,244 +337,111 @@ export default function ScholarshipExamPage() {
                     </Card>
                 )}
 
-                {/* Step 1: Personal Info */}
                 {step === 1 && (
-                    <Card className="border-2 border-primary/10 shadow-2xl bg-card/50 backdrop-blur-sm animate-in fade-in slide-in-from-right-8 duration-700">
-                        <CardHeader>
-                            <CardTitle className="text-2xl">Tell us about yourself</CardTitle>
-                            <CardDescription>Fill in your basic details to proceed to the exam.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="p-8 space-y-6">
-                            <div className="grid gap-6">
-                                <div className="space-y-2">
-                                    <Label htmlFor="fullName" className="flex items-center gap-2">
-                                        <User className="w-4 h-4 text-primary" /> Full Name
-                                    </Label>
-                                    <Input
-                                        id="fullName"
-                                        name="fullName"
-                                        placeholder="Enter your full name"
-                                        value={formData.fullName}
-                                        onChange={handleInputChange}
-                                        className="h-12"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="email" className="flex items-center gap-2">
-                                        <Mail className="w-4 h-4 text-primary" /> Email Address
-                                    </Label>
-                                    <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        placeholder="example@mail.com"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        className="h-12"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="phone" className="flex items-center gap-2">
-                                        <Phone className="w-4 h-4 text-primary" /> Phone Number
-                                    </Label>
-                                    <Input
-                                        id="phone"
-                                        name="phone"
-                                        placeholder="0801 234 5678"
-                                        value={formData.phone}
-                                        onChange={handleInputChange}
-                                        className="h-12"
-                                    />
-                                </div>
-                                <div className="space-y-3">
-                                    <Label className="flex items-center gap-2">
-                                        <Laptop className="w-4 h-4 text-primary" /> Do you have a laptop?
-                                    </Label>
-                                    <div className="flex gap-4">
-                                        <label className={`flex items-center space-x-2 p-3 border rounded-xl hover:bg-muted/50 transition-colors flex-1 cursor-pointer ${formData.hasLaptop === "Yes" ? "border-primary bg-primary/5" : ""}`}>
-                                            <input
-                                                type="radio"
-                                                name="hasLaptop"
-                                                value="Yes"
-                                                checked={formData.hasLaptop === "Yes"}
-                                                onChange={(e) => setFormData({ ...formData, hasLaptop: e.target.value })}
-                                                className="w-4 h-4 text-primary focus:ring-primary border-border"
-                                            />
-                                            <span className="flex-1 cursor-pointer">Yes</span>
+                    <Card className="p-8 space-y-6 animate-in fade-in slide-in-from-right-8 duration-700">
+                        <div className="grid gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="fullName">Full Name</Label>
+                                <Input id="fullName" name="fullName" value={formData.fullName} onChange={handleInputChange} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="email">Email Address</Label>
+                                <Input id="email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="phone">Phone Number</Label>
+                                <Input id="phone" name="phone" value={formData.phone} onChange={handleInputChange} />
+                            </div>
+                            <div className="space-y-3">
+                                <Label>Do you have a laptop?</Label>
+                                <div className="flex gap-4">
+                                    {["Yes", "No"].map(val => (
+                                        <label key={val} className={`p-4 border rounded-xl flex-1 cursor-pointer ${formData.hasLaptop === val ? 'bg-primary/10 border-primary' : ''}`}>
+                                            <input type="radio" value={val} checked={formData.hasLaptop === val} onChange={(e) => setFormData({ ...formData, hasLaptop: e.target.value })} className="mr-2" />
+                                            {val}
                                         </label>
-                                        <label className={`flex items-center space-x-2 p-3 border rounded-xl hover:bg-muted/50 transition-colors flex-1 cursor-pointer ${formData.hasLaptop === "No" ? "border-primary bg-primary/5" : ""}`}>
-                                            <input
-                                                type="radio"
-                                                name="hasLaptop"
-                                                value="No"
-                                                checked={formData.hasLaptop === "No"}
-                                                onChange={(e) => setFormData({ ...formData, hasLaptop: e.target.value })}
-                                                className="w-4 h-4 text-primary focus:ring-primary border-border"
-                                            />
-                                            <span className="flex-1 cursor-pointer">No</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <Label className="flex items-center gap-2">
-                                        <GraduationCap className="w-4 h-4 text-primary" /> Which track are you applying for?
-                                    </Label>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        {tracks.map((track) => (
-                                            <label
-                                                key={track}
-                                                className={`flex items-center p-3 rounded-xl border-2 transition-all cursor-pointer hover:bg-primary/5 ${formData.tracks.includes(track) ? 'border-primary bg-primary/5' : 'border-border'}`}
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    name="track"
-                                                    value={track}
-                                                    className="w-4 h-4 mr-3 accent-primary"
-                                                    checked={formData.tracks.includes(track)}
-                                                    onChange={() => toggleTrack(track)}
-                                                />
-                                                <span className={`text-sm ${formData.tracks.includes(track) ? 'font-bold text-primary' : ''}`}>{track}</span>
-                                            </label>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="whyJoin">Why do you want to join SYTYAT? (Optional)</Label>
-                                    <Textarea
-                                        id="whyJoin"
-                                        name="whyJoin"
-                                        placeholder="Tell us about your motivation..."
-                                        value={formData.whyJoin}
-                                        onChange={handleInputChange}
-                                        className="min-h-[100px]"
-                                    />
+                                    ))}
                                 </div>
                             </div>
-
-                            <div className="flex gap-4 pt-4">
-                                <Button variant="ghost" onClick={prevStep} className="h-14 px-6 rounded-xl">
-                                    <ArrowLeft className="mr-2 w-5 h-5" /> Back
-                                </Button>
-                                <Button onClick={nextStep} className="flex-1 h-14 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 group">
-                                    Start Assessment
-                                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </Button>
+                            <div className="space-y-2">
+                                <Label>Select Tracks</Label>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {tracks.map(track => (
+                                        <label key={track} className={`p-3 border rounded-xl cursor-pointer hover:bg-muted ${formData.tracks.includes(track) ? 'border-primary bg-primary/5' : ''}`}>
+                                            <input type="checkbox" checked={formData.tracks.includes(track)} onChange={() => toggleTrack(track)} className="mr-2" />
+                                            <span className="text-sm">{track}</span>
+                                        </label>
+                                    ))}
+                                </div>
                             </div>
-                        </CardContent>
+                        </div>
+                        <Button onClick={nextStep} className="w-full h-14 mt-6">Next</Button>
                     </Card>
                 )}
 
-                {/* Step 2: Questions */}
                 {step === 2 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-right-8 duration-700">
                         <div className="p-6 rounded-3xl bg-card border-2 border-primary/10 shadow-xl mb-8 sticky top-10 z-20 backdrop-blur-md">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <Badge variant="outline" className="text-xs uppercase tracking-widest text-primary border-primary/20">
-                                            Assessment {currentTrackIndex + 1} of {formData.tracks.length}
-                                        </Badge>
-                                    </div>
-                                    <h3 className="font-bold text-xl">{currentTrack}</h3>
-                                    <p className="text-sm text-muted-foreground">Answer all 10 questions to proceed.</p>
-                                </div>
-                                <Badge variant="secondary" className="px-3 py-1 text-lg font-mono">
-                                    {Object.keys(answers[currentTrack] || {}).length}/10
-                                </Badge>
-                            </div>
-                            <div className="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-primary transition-all duration-500"
-                                    style={{ width: `${((currentTrackIndex) / formData.tracks.length) * 100}%` }}
-                                />
+                            <h3 className="font-bold text-xl">{currentTrack} ({currentTrackIndex + 1}/{formData.tracks.length})</h3>
+                            <div className="mt-4 h-1.5 bg-muted rounded-full">
+                                <div className="h-full bg-primary" style={{ width: `${(Object.keys(answers[currentTrack] || {}).length / 10) * 100}%` }} />
                             </div>
                         </div>
 
                         {currentQuestions.map((q, idx) => (
-                            <Card key={`${currentTrack}-${idx}`} className={`border-2 transition-all duration-300 ${answers[currentTrack]?.[idx] ? 'border-primary/20 bg-primary/5' : 'border-border'}`}>
-                                <CardHeader>
-                                    <CardTitle className="text-xl flex gap-4">
-                                        <span className="text-primary font-mono shrink-0">Q{idx + 1}.</span>
-                                        <span>{q.q}</span>
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-3">
-                                        {q.options.map((opt, optIdx) => (
-                                            <label
-                                                key={optIdx}
-                                                className={`flex items-center space-x-3 p-4 border-2 rounded-2xl cursor-pointer transition-all ${(answers[currentTrack]?.[idx]) === opt ? 'border-primary bg-primary/10 shadow-sm' : 'border-border hover:bg-muted/50'}`}
-                                            >
-                                                <input
-                                                    type="radio"
-                                                    name={`q${currentTrackIndex}-${idx}`}
-                                                    value={opt}
-                                                    checked={(answers[currentTrack]?.[idx]) === opt}
-                                                    onChange={(e) => handleAnswerChange(currentTrack, idx, e.target.value)}
-                                                    className="w-4 h-4 text-primary focus:ring-primary border-border"
-                                                />
-                                                <span className="flex-1 cursor-pointer text-base font-medium">{opt}</span>
-                                            </label>
-                                        ))}
-                                    </div>
-                                </CardContent>
+                            <Card key={idx} className="p-6">
+                                <p className="font-bold mb-4">{idx + 1}. {q.q}</p>
+                                <div className="space-y-2">
+                                    {q.options.map((opt, oIdx) => (
+                                        <label key={oIdx} className={`block p-4 border rounded-xl cursor-pointer hover:bg-muted ${answers[currentTrack]?.[idx] === opt ? 'border-primary bg-primary/10' : ''}`}>
+                                            <input type="radio" checked={answers[currentTrack]?.[idx] === opt} onChange={() => handleAnswerChange(currentTrack, idx, opt)} className="mr-2" />
+                                            {opt}
+                                        </label>
+                                    ))}
+                                </div>
                             </Card>
                         ))}
 
-                        <div className="flex gap-4 pt-8">
-                            <Button variant="outline" onClick={prevStep} className="h-16 px-8 rounded-2xl border-2">
-                                <ArrowLeft className="mr-2 w-5 h-5" /> Back
-                            </Button>
-                            {currentTrackIndex < formData.tracks.length - 1 ? (
-                                <Button
-                                    onClick={nextStep}
-                                    className="flex-1 h-16 text-xl font-bold rounded-2xl shadow-2xl shadow-primary/20 group"
-                                >
-                                    Next Assessment
-                                    <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                                </Button>
-                            ) : (
-                                <Button
-                                    onClick={handleSubmit}
-                                    disabled={Object.keys(answers[currentTrack] || {}).length < 10 || isLoading}
-                                    className="flex-1 h-16 text-xl font-bold rounded-2xl shadow-2xl shadow-primary/20 relative overflow-hidden group"
-                                >
-                                    {isLoading ? (
-                                        <Loader2 className="w-6 h-6 animate-spin" />
-                                    ) : (
-                                        <>
-                                            Submit All Assessments
-                                            <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </Button>
-                            )}
-                        </div>
+                        <Button onClick={currentTrackIndex < formData.tracks.length - 1 ? nextStep : handleSubmit} className="w-full h-16" disabled={Object.keys(answers[currentTrack] || {}).length < 10 || isLoading}>
+                            {isLoading ? <Loader2 className="animate-spin" /> : currentTrackIndex < formData.tracks.length - 1 ? "Next Track" : "Submit Analysis"}
+                        </Button>
                     </div>
                 )}
 
-                {/* Step 3: Success */}
-                {step === 3 && (
-                    <Card className="border-2 border-green-500/20 shadow-2xl bg-card/50 backdrop-blur-sm text-center p-8 sm:p-12 animate-in zoom-in duration-700">
-                        <div className="w-24 h-24 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
-                            <CheckCircle2 className="w-14 h-14" />
+                {step === 3 && submissionResult && (
+                    <Card className={`p-8 sm:p-12 text-center border-2 ${submissionResult.passed ? 'border-green-500/20' : 'border-red-500/20'} animate-in zoom-in duration-700`}>
+                        {submissionResult.passed ? (
+                            <>
+                                <div className="w-24 h-24 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
+                                    <CheckCircle2 className="w-14 h-14" />
+                                </div>
+                                <h2 className="text-4xl font-black mb-4 uppercase">Scholarship Secured!</h2>
+                                <p className="text-xl mb-10 text-muted-foreground">
+                                    Congratulations! You've passed the assessment. An email with your official offer and payment details has been sent to your inbox.
+                                </p>
+                                {submissionResult.paymentLink && (
+                                    <Button asChild size="lg" className="h-16 px-12 text-lg font-bold rounded-2xl bg-green-600 hover:bg-green-700">
+                                        <a href={submissionResult.paymentLink}>Pay Scholarship Fee Now (₦15,000)</a>
+                                    </Button>
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <div className="w-24 h-24 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-8">
+                                    <XCircle className="w-14 h-14" />
+                                </div>
+                                <h2 className="text-4xl font-black mb-4 uppercase">Assessment Feedback</h2>
+                                <p className="text-xl mb-10 text-muted-foreground">
+                                    {submissionResult.feedback}
+                                </p>
+                                <Button asChild size="lg" className="h-16 px-12 text-lg font-bold rounded-2xl">
+                                    <Link href="/apply">Register via Standard Route</Link>
+                                </Button>
+                            </>
+                        )}
+                        <div className="mt-8">
+                            <Link href="/" className="text-sm text-muted-foreground hover:underline">Return Home</Link>
                         </div>
-                        <h2 className="text-4xl font-black mb-4">Exam Completed!</h2>
-                        <CardDescription className="text-xl mb-10 max-w-sm mx-auto">
-                            Thank you, {formData.fullName}. Your applications and exam answers have been submitted successfully for review.
-                        </CardDescription>
-
-                        <div className="bg-muted/30 border border-border/50 rounded-3xl p-8 mb-10 inline-block w-full text-left">
-                            <div className="text-sm text-muted-foreground uppercase font-bold tracking-widest mb-2 text-center">Next Steps</div>
-                            <p className="text-lg leading-relaxed text-center">
-                                Our admissions team will review your application and assessment results.
-                                You will receive an official feedback email within 48 hours.
-                            </p>
-                        </div>
-
-                        <Button asChild size="lg" className="h-16 px-12 text-lg font-bold rounded-2xl">
-                            <Link href="/">Return to Home</Link>
-                        </Button>
                     </Card>
                 )}
             </div>
