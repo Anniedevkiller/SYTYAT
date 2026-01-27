@@ -352,7 +352,7 @@ export default function ApplyPage() {
                           {program.hasScholarship && (
                             <Button
                               asChild
-                              className={`w-full h-12 rounded-xl transition-all duration-300 bg-white border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary hover:text-primary`}
+                              className={`w-full h-auto py-3 rounded-xl transition-all duration-300 bg-white border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary hover:text-primary whitespace-normal`}
                               variant="outline"
                             >
                               <Link href="/scholarship-exam">
@@ -366,7 +366,7 @@ export default function ApplyPage() {
                               setSelectedProgramId(program.id)
                               setFlowType("pay")
                             }}
-                            className={`w-full h-12 rounded-xl transition-all duration-300 ${isSelected && flowType === "pay"
+                            className={`w-full h-auto py-3 rounded-xl transition-all duration-300 whitespace-normal ${isSelected && flowType === "pay"
                               ? "bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]"
                               : "bg-white border-2 border-border text-foreground hover:bg-muted hover:text-foreground"
                               }`}
@@ -602,7 +602,7 @@ export default function ApplyPage() {
                   <div className="pt-8">
                     <Button
                       type="submit"
-                      className="w-full h-14 text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all group"
+                      className="w-full h-auto py-4 text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all group whitespace-normal"
                       disabled={isLoading}
                     >
                       {isLoading ? (

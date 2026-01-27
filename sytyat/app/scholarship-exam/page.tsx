@@ -409,18 +409,18 @@ export default function ScholarshipExamPage() {
                 )}
 
                 {step === 3 && submissionResult && (
-                    <Card className={`p-8 sm:p-12 text-center border-2 ${submissionResult.passed ? 'border-green-500/20' : 'border-red-500/20'} animate-in zoom-in duration-700`}>
+                    <Card className={`p-6 sm:p-12 text-center border-2 ${submissionResult.passed ? 'border-green-500/20' : 'border-red-500/20'} animate-in zoom-in duration-700`}>
                         {submissionResult.passed ? (
                             <>
                                 <div className="w-24 h-24 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 animate-bounce">
                                     <CheckCircle2 className="w-14 h-14" />
                                 </div>
-                                <h2 className="text-4xl font-black mb-4 uppercase">Scholarship Secured!</h2>
-                                <p className="text-xl mb-10 text-muted-foreground">
+                                <h2 className="text-2xl sm:text-4xl font-black mb-4 uppercase">Scholarship Secured!</h2>
+                                <p className="text-lg sm:text-xl mb-10 text-muted-foreground px-2">
                                     Congratulations! You've passed the assessment. An email with your official offer and payment details has been sent to your inbox.
                                 </p>
                                 {submissionResult.paymentLink && (
-                                    <Button asChild size="lg" className="h-16 px-12 text-lg font-bold rounded-2xl bg-green-600 hover:bg-green-700">
+                                    <Button asChild size="lg" className="h-auto py-4 px-6 sm:h-16 sm:px-12 text-base sm:text-lg font-bold rounded-2xl bg-green-600 hover:bg-green-700 w-full sm:w-auto whitespace-normal">
                                         <a href={submissionResult.paymentLink}>Pay Scholarship Fee Now (₦15,000)</a>
                                     </Button>
                                 )}
@@ -430,11 +430,11 @@ export default function ScholarshipExamPage() {
                                 <div className="w-24 h-24 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-8">
                                     <XCircle className="w-14 h-14" />
                                 </div>
-                                <h2 className="text-4xl font-black mb-4 uppercase">Assessment Feedback</h2>
-                                <p className="text-xl mb-10 text-muted-foreground">
+                                <h2 className="text-2xl sm:text-4xl font-black mb-4 uppercase">Assessment Feedback</h2>
+                                <p className="text-lg sm:text-xl mb-10 text-muted-foreground px-2">
                                     {submissionResult.feedback}
                                 </p>
-                                <Button asChild size="lg" className="h-16 px-12 text-lg font-bold rounded-2xl">
+                                <Button asChild size="lg" className="h-auto py-4 px-6 sm:h-16 sm:px-12 text-base sm:text-lg font-bold rounded-2xl w-full sm:w-auto whitespace-normal">
                                     <Link href="/apply">Register via Standard Route</Link>
                                 </Button>
                             </>
