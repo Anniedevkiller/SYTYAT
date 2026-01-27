@@ -608,28 +608,14 @@ export default function ScholarshipExamPage() {
                         </div>
                         <h2 className="text-4xl font-black mb-4">Exam Completed!</h2>
                         <CardDescription className="text-xl mb-10 max-w-sm mx-auto">
-                            Thank you, {formData.fullName}. Your applications and exam results have been submitted successfully.
+                            Thank you, {formData.fullName}. Your applications and exam answers have been submitted successfully for review.
                         </CardDescription>
-
-                        <div className="space-y-4 mb-10">
-                            {results.map((res, i) => (
-                                <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-muted/30 border border-border/50">
-                                    <div className="text-left">
-                                        <div className="font-bold text-lg">{res.track}</div>
-                                        <div className="text-sm text-muted-foreground">Score: {res.score}/{res.total}</div>
-                                    </div>
-                                    <Badge className="text-lg px-4 py-1">
-                                        {res.passRate}
-                                    </Badge>
-                                </div>
-                            ))}
-                        </div>
 
                         <div className="bg-muted/30 border border-border/50 rounded-3xl p-8 mb-10 inline-block w-full text-left">
                             <div className="text-sm text-muted-foreground uppercase font-bold tracking-widest mb-2 text-center">Next Steps</div>
                             <p className="text-lg leading-relaxed text-center">
-                                Our team will review your scores and application.
-                                You will receive an offer letter via email within 48 hours.
+                                Our admissions team will review your application and assessment results.
+                                You will receive an official feedback email within 48 hours.
                             </p>
                         </div>
 
