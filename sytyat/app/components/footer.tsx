@@ -69,11 +69,11 @@ function Footer() {
             <ul className="space-y-3 text-sm text-background/70">
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>bivylightspace@gmail.com</span>
+                <span>admissions@sytyat.bivytech.space</span>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>+234 707 409 4990</span>
+                <span>+234 810 468 0342</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 mt-0.5" />

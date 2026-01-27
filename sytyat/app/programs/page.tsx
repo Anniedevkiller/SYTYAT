@@ -165,7 +165,7 @@ export default function ProgramsPage() {
                     <div className="flex items-center gap-4 p-4 rounded-2xl bg-muted/50 border border-border">
                       <Clock className="w-6 h-6 text-primary" />
                       <div>
-                        <p className="font-bold text-lg">Next Cohort: Feb – Apr 2025</p>
+                        <p className="font-bold text-lg">Next Cohort: Starts Feb 10, 2025</p>
                         <p className="text-sm text-muted-foreground">3 Months Intensive Training</p>
                       </div>
                     </div>

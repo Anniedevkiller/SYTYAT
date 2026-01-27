@@ -64,7 +64,7 @@ export default function ScholarshipPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
                             <Sparkles className="w-4 h-4 text-accent" />
-                            <span className="text-sm font-semibold text-accent">SYTYAT Merit Scholarship</span>
+                            <span className="text-sm font-semibold text-accent">SYTYAT Merit Scholarship • Deadline Feb 24</span>
                         </div>
 
                         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
@@ -79,7 +79,7 @@ export default function ScholarshipPage() {
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
                             <Button asChild size="lg" className="h-14 px-8 rounded-full text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
-                                <Link href="/apply">
+                                <Link href="/scholarship-exam">
                                     Take the Challenge
                                     <ArrowRight className="ml-2 w-5 h-5" />
                                 </Link>
@@ -125,36 +125,45 @@ export default function ScholarshipPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden">
                 <div className="container mx-auto">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 lg:order-1 relative">
-                            {/* Decorative background for steps */}
-                            <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-primary/50 to-transparent lg:left-8" />
+                        <div className="order-2 lg:order-1">
+                            <div className="mb-16">
+                                <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
+                                <p className="text-muted-foreground text-lg">Your journey to a full scholarship in 3 simple steps.</p>
+                            </div>
 
-                            <div className="space-y-12 relative z-10">
-                                <div className="mb-10">
-                                    <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
-                                    <p className="text-muted-foreground text-lg">Your journey to a full scholarship in 3 simple steps.</p>
-                                </div>
+                            <div className="relative space-y-12">
+                                {/* Decorative background line - now scoped to the steps */}
+                                <div className="absolute left-8 top-8 bottom-8 w-0.5 bg-border lg:left-8 z-0" />
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300">1</div>
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300 relative">
+                                        <div className="absolute inset-0 bg-primary/10 rounded-2xl" />
+                                        <span className="relative z-10">1</span>
+                                    </div>
                                     <div className="pt-2">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Apply Online</h3>
                                         <p className="text-muted-foreground leading-relaxed">Select "Apply for Scholarship" on the application page. Fill in your personal details to create your candidate profile.</p>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-accent/10 text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300">2</div>
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300 relative">
+                                        <div className="absolute inset-0 bg-accent/10 rounded-2xl" />
+                                        <span className="relative z-10">2</span>
+                                    </div>
                                     <div className="pt-2">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Take the Assessment</h3>
                                         <p className="text-muted-foreground leading-relaxed">Receive a link to our 30-minute online logic & aptitude test. You can take this from anywhere, on any device.</p>
                                     </div>
                                 </div>
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-secondary/20 text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300">3</div>
-                                    <div className="pt-2">
-                                        <h3 className="text-xl font-bold mb-2 group-hover:text-secondary-foreground transition-colors">Get Verified</h3>
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-violet-600 border border-violet-500/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-violet-500/5 group-hover:scale-110 transition-transform duration-300 relative">
+                                        <div className="absolute inset-0 bg-violet-500/10 rounded-2xl" />
+                                        <span className="relative z-10">3</span>
+                                    </div>
+                                    <div className="pt-2 text-left">
+                                        <h3 className="text-xl font-bold mb-2 group-hover:text-violet-600 transition-colors">Get Verified</h3>
                                         <p className="text-muted-foreground leading-relaxed">Top performers receive a scholarship offer letter within 48 hours, unlocking the reduced ₦15,000 tuition fee.</p>
                                     </div>
                                 </div>
@@ -250,7 +259,7 @@ export default function ScholarshipPage() {
                             Join the ranks of successful Bivy Tech scholars. Prove your merit and start your journey for just ₦15,000.
                         </p>
                         <Button asChild size="lg" className="h-16 px-10 text-lg font-bold rounded-full bg-background text-foreground hover:bg-background/90 hover:scale-105 transition-all">
-                            <Link href="/apply">
+                            <Link href="/scholarship-exam">
                                 Start Application Logic Test
                             </Link>
                         </Button>

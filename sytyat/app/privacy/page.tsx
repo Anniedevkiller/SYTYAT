@@ -49,8 +49,8 @@ export default function PrivacyPage() {
                                         Welcome to SYTYAT ("So You Think You Are a Techie?"), a program by Bivy Space. We are committed to
                                         protecting your personal information and your right to privacy. If you have any questions or concerns
                                         about our policy, or our practices with regards to your personal information, please contact us at{" "}
-                                        <a href="mailto:bivylightspace@gmail.com" className="text-primary font-medium hover:underline">
-                                            bivylightspace@gmail.com
+                                        <a href="mailto:admissions@sytyat.bivytech.space" className="text-primary font-medium hover:underline">
+                                            admissions@sytyat.bivytech.space
                                         </a>
                                         .
                                     </p>
@@ -153,8 +153,8 @@ export default function PrivacyPage() {
                                         </div>
                                         <p className="text-muted-foreground text-sm leading-relaxed">
                                             If you have questions or comments about this policy, you may email us at{" "}
-                                            <a href="mailto:bivylightspace@gmail.com" className="text-primary font-medium hover:underline">
-                                                bivylightspace@gmail.com
+                                            <a href="mailto:admissions@sytyat.bivytech.space" className="text-primary font-medium hover:underline">
+                                                admissions@sytyat.bivytech.space
                                             </a>.
                                         </p>
                                     </div>

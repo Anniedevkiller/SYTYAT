@@ -5,11 +5,16 @@ import { checkEmailExists } from "@/lib/googleSheets"
 export async function POST(req: Request) {
     try {
         const body = await req.json()
+        console.log("Paystack Initialize Request Payload:", body)
+
         const { email, amount, metadata } = body
 
         if (!email || !amount) {
+            const missing = []
+            if (!email) missing.push("email")
+            if (!amount) missing.push("amount")
             return NextResponse.json(
-                { message: "Email and amount are required" },
+                { message: `Missing required fields: ${missing.join(", ")}` },
                 { status: 400 }
             )
         }
@@ -18,8 +23,8 @@ export async function POST(req: Request) {
         const alreadyPaid = await checkEmailExists(email, process.env.GOOGLE_SHEET_ID_PAYMENTS)
         if (alreadyPaid) {
             return NextResponse.json(
-                { message: "A payment/signup already exists for this email address." },
-                { status: 400 }
+                { message: "A payment/signup already exists for this email address. Please contact support if you have issues." },
+                { status: 409 } // Conflict
             )
         }
 
