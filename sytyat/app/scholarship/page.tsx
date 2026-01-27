@@ -79,7 +79,7 @@ export default function ScholarshipPage() {
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-10 duration-700 delay-300">
                             <Button asChild size="lg" className="h-14 px-8 rounded-full text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
-                                <Link href="/apply">
+                                <Link href="/scholarship-exam">
                                     Take the Challenge
                                     <ArrowRight className="ml-2 w-5 h-5" />
                                 </Link>
@@ -250,7 +250,7 @@ export default function ScholarshipPage() {
                             Join the ranks of successful Bivy Tech scholars. Prove your merit and start your journey for just ₦15,000.
                         </p>
                         <Button asChild size="lg" className="h-16 px-10 text-lg font-bold rounded-full bg-background text-foreground hover:bg-background/90 hover:scale-105 transition-all">
-                            <Link href="/apply">
+                            <Link href="/scholarship-exam">
                                 Start Application Logic Test
                             </Link>
                         </Button>
