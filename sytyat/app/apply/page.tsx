@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Globe,
   Rocket,
@@ -25,6 +26,7 @@ import {
   Phone,
   Mail,
   School,
+  Calendar,
 } from "lucide-react"
 import axios from "axios"
 
@@ -184,7 +186,7 @@ export default function ApplyPage() {
     fetchStates()
   }, [formData.country])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
 
     // Validation for phone number to only allow numbers and + 
