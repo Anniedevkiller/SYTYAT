@@ -125,18 +125,18 @@ export default function ScholarshipPage() {
             <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background relative overflow-hidden">
                 <div className="container mx-auto">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
-                        <div className="order-2 lg:order-1 relative">
-                            {/* Decorative background for steps */}
-                            <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-primary/30 to-transparent lg:left-8 z-0" />
+                        <div className="order-2 lg:order-1">
+                            <div className="mb-16">
+                                <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
+                                <p className="text-muted-foreground text-lg">Your journey to a full scholarship in 3 simple steps.</p>
+                            </div>
 
-                            <div className="space-y-12 relative z-10">
-                                <div className="mb-10">
-                                    <h2 className="text-3xl sm:text-4xl font-bold mb-4">How It Works</h2>
-                                    <p className="text-muted-foreground text-lg">Your journey to a full scholarship in 3 simple steps.</p>
-                                </div>
+                            <div className="relative space-y-12">
+                                {/* Decorative background line - now scoped to the steps */}
+                                <div className="absolute left-8 top-8 bottom-8 w-0.5 bg-border lg:left-8 z-0" />
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300 relative">
                                         <div className="absolute inset-0 bg-primary/10 rounded-2xl" />
                                         <span className="relative z-10">1</span>
                                     </div>
@@ -146,8 +146,8 @@ export default function ScholarshipPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300 relative">
                                         <div className="absolute inset-0 bg-accent/10 rounded-2xl" />
                                         <span className="relative z-10">2</span>
                                     </div>
@@ -157,12 +157,12 @@ export default function ScholarshipPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                <div className="flex gap-6 group relative z-10">
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300 relative">
                                         <div className="absolute inset-0 bg-secondary/10 rounded-2xl" />
                                         <span className="relative z-10">3</span>
                                     </div>
-                                    <div className="pt-2">
+                                    <div className="pt-2 text-left">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-secondary-foreground transition-colors">Get Verified</h3>
                                         <p className="text-muted-foreground leading-relaxed">Top performers receive a scholarship offer letter within 48 hours, unlocking the reduced ₦15,000 tuition fee.</p>
                                     </div>
