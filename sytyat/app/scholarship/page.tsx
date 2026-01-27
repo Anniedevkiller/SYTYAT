@@ -127,7 +127,7 @@ export default function ScholarshipPage() {
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1 relative">
                             {/* Decorative background for steps */}
-                            <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-primary/50 to-transparent lg:left-8" />
+                            <div className="absolute left-8 top-10 bottom-10 w-0.5 bg-gradient-to-b from-primary/30 to-transparent lg:left-8 z-0" />
 
                             <div className="space-y-12 relative z-10">
                                 <div className="mb-10">
@@ -136,7 +136,10 @@ export default function ScholarshipPage() {
                                 </div>
 
                                 <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-primary/10 text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300">1</div>
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-primary border border-primary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                        <div className="absolute inset-0 bg-primary/10 rounded-2xl" />
+                                        <span className="relative z-10">1</span>
+                                    </div>
                                     <div className="pt-2">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Apply Online</h3>
                                         <p className="text-muted-foreground leading-relaxed">Select "Apply for Scholarship" on the application page. Fill in your personal details to create your candidate profile.</p>
@@ -144,7 +147,10 @@ export default function ScholarshipPage() {
                                 </div>
 
                                 <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-accent/10 text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300">2</div>
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-accent border border-accent/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-accent/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                        <div className="absolute inset-0 bg-accent/10 rounded-2xl" />
+                                        <span className="relative z-10">2</span>
+                                    </div>
                                     <div className="pt-2">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">Take the Assessment</h3>
                                         <p className="text-muted-foreground leading-relaxed">Receive a link to our 30-minute online logic & aptitude test. You can take this from anywhere, on any device.</p>
@@ -152,7 +158,10 @@ export default function ScholarshipPage() {
                                 </div>
 
                                 <div className="flex gap-6 group">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-secondary/20 text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300">3</div>
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300 z-10 relative">
+                                        <div className="absolute inset-0 bg-secondary/10 rounded-2xl" />
+                                        <span className="relative z-10">3</span>
+                                    </div>
                                     <div className="pt-2">
                                         <h3 className="text-xl font-bold mb-2 group-hover:text-secondary-foreground transition-colors">Get Verified</h3>
                                         <p className="text-muted-foreground leading-relaxed">Top performers receive a scholarship offer letter within 48 hours, unlocking the reduced ₦15,000 tuition fee.</p>
