@@ -396,10 +396,10 @@ export default function Home() {
             <div className="space-y-6">
               {[
                 {
-                  date: "Feb 2025",
+                  date: "Feb 10, 2025",
                   event: "Cohort 2 Kickoff",
                   status: "Admissions Open",
-                  desc: "Start of our immersive 3-month intensive digital bootcamp.",
+                  desc: "Start of our immersive 3-month intensive digital bootcamp. Applications close Feb 24.",
                   type: "Active",
                   color: "primary"
                 },

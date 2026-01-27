@@ -64,7 +64,7 @@ export default function ScholarshipPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
                             <Sparkles className="w-4 h-4 text-accent" />
-                            <span className="text-sm font-semibold text-accent">SYTYAT Merit Scholarship</span>
+                            <span className="text-sm font-semibold text-accent">SYTYAT Merit Scholarship • Deadline Feb 24</span>
                         </div>
 
                         <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 tracking-tight animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">

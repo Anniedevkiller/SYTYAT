@@ -32,7 +32,7 @@ const programs = [
   {
     id: "bootcamp",
     title: "3-Month Tech Bootcamp",
-    subtitle: "Cohort 2 — February 2025",
+    subtitle: "Cohort 2 — Starts February 10, 2025",
     icon: Rocket,
     color: "primary",
     regularPrice: 20000,
@@ -402,6 +402,10 @@ export default function ApplyPage() {
 
             <Card className="border-2 border-primary/10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
+              <div className="bg-primary/5 border-b border-primary/10 p-4 flex items-center justify-center gap-3">
+                <Calendar className="w-5 h-5 text-primary" />
+                <span className="text-sm font-bold text-primary">Cohort 2 Applications Close: February 24, 2025</span>
+              </div>
               <CardHeader className="text-center pt-10">
                 <CardTitle className="text-2xl">Application Form</CardTitle>
                 <CardDescription>
