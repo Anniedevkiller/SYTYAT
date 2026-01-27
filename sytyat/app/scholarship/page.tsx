@@ -158,12 +158,12 @@ export default function ScholarshipPage() {
                                 </div>
 
                                 <div className="flex gap-6 group relative z-10">
-                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-secondary-foreground border border-secondary/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-secondary/5 group-hover:scale-110 transition-transform duration-300 relative">
-                                        <div className="absolute inset-0 bg-secondary/10 rounded-2xl" />
+                                    <div className="flex-none w-16 h-16 rounded-2xl bg-background text-violet-600 border border-violet-500/20 flex items-center justify-center font-bold text-2xl shadow-lg shadow-violet-500/5 group-hover:scale-110 transition-transform duration-300 relative">
+                                        <div className="absolute inset-0 bg-violet-500/10 rounded-2xl" />
                                         <span className="relative z-10">3</span>
                                     </div>
                                     <div className="pt-2 text-left">
-                                        <h3 className="text-xl font-bold mb-2 group-hover:text-secondary-foreground transition-colors">Get Verified</h3>
+                                        <h3 className="text-xl font-bold mb-2 group-hover:text-violet-600 transition-colors">Get Verified</h3>
                                         <p className="text-muted-foreground leading-relaxed">Top performers receive a scholarship offer letter within 48 hours, unlocking the reduced ₦15,000 tuition fee.</p>
                                     </div>
                                 </div>
