@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
 import Image from "next/image"
 
 function Footer() {
@@ -70,6 +70,12 @@ function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 <span>admissions@sytyat.bivytech.space</span>
+              </li>
+              <li className="flex items-center gap-2 text-green-400">
+                <MessageCircle className="w-4 h-4" />
+                <a href="https://chat.whatsapp.com/DxKd0O6QY7WKtVVPWXi2aY?mode=gi_t" target="_blank" rel="noopener noreferrer" className="hover:text-green-300 transition-colors">
+                  WhatsApp Support
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />

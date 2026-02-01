@@ -76,3 +76,33 @@ export async function checkEmailExists(email: string, spreadsheetId?: string) {
         return false // Fallback to allow if check fails (safest for UX)
     }
 }
+export async function getScholarshipRecipients(spreadsheetId?: string) {
+    try {
+        const rawKey = process.env.GOOGLE_PRIVATE_KEY || ""
+        const privateKey = rawKey.replace(/\\n/g, "\n").replace(/^"(.*)"$/, "$1").trim()
+
+        const serviceAccountAuth = new JWT({
+            email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+            key: privateKey,
+            scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+        })
+
+        const targetId = spreadsheetId || process.env.GOOGLE_SHEET_ID || ""
+        const doc = new GoogleSpreadsheet(targetId, serviceAccountAuth)
+        await doc.loadInfo()
+
+        const sheet = doc.sheetsByIndex[0]
+        const rows = await sheet.getRows()
+
+        return rows.map(row => ({
+            email: row.get("Email"),
+            fullName: row.get("Full Name"),
+            program: row.get("Program"),
+            track: row.get("Track"),
+            reference: row.get("Reference"),
+        })).filter(r => r.reference === "SCHOLARSHIP-PASS")
+    } catch (error) {
+        console.error("Error getting scholarship recipients:", error)
+        return []
+    }
+}

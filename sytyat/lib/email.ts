@@ -33,6 +33,11 @@ export async function sendScholarshipConfirmationEmail(email: string, fullName: 
             <div style="text-align: center; margin-top: 32px;">
               <a href="https://sytyat.bivytech.space" style="background-color: #2563eb; color: #ffffff; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block;">Visit Student Portal</a>
             </div>
+
+            <div style="text-align: center; margin-top: 16px;">
+              <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">Need help? Join our support group:</p>
+              <a href="https://chat.whatsapp.com/DxKd0O6QY7WKtVVPWXi2aY?mode=gi_t" style="color: #2563eb; text-decoration: none; font-weight: 600; font-size: 14px;">Connect on WhatsApp</a>
+            </div>
           </div>
 
           <p style="color: #94a3b8; font-size: 13px; text-align: center; margin-top: 32px;">
@@ -77,11 +82,16 @@ export async function sendScholarshipPassEmail(email: string, fullName: string, 
             <div style="background-color: #f0fdf4; border-radius: 16px; padding: 24px; margin: 32px 0; border: 1px solid #dcfce7;">
               <p style="margin: 0 0 16px 0; font-weight: 700; color: #166534; font-size: 14px; text-transform: uppercase;">Scholarship Offer:</p>
               <p style="color: #166534; font-size: 18px; font-weight: 800; margin: 8px 0;">Tuition: ₦15,000 (Subsidized)</p>
-              <p style="color: #475569; font-size: 14px;">This offer is valid for the next 48 hours.</p>
+              <p style="color: #475569; font-size: 14px;">This offer is valid until <strong>Friday, February 21st</strong>.</p>
             </div>
 
             <div style="text-align: center; margin-top: 32px;">
               <a href="${paymentLink}" style="background-color: #10b981; color: #ffffff; padding: 18px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; font-size: 16px;">Pay Scholarship Fee Now</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 16px;">
+              <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">Have questions? Join our support group:</p>
+              <a href="https://chat.whatsapp.com/DxKd0O6QY7WKtVVPWXi2aY?mode=gi_t" style="color: #10b981; text-decoration: none; font-weight: 600; font-size: 14px;">Connect on WhatsApp</a>
             </div>
 
             <p style="color: #64748b; font-size: 14px; text-align: center; margin-top: 24px;">
@@ -144,6 +154,11 @@ export async function sendPaymentConfirmationEmail(email: string, fullName: stri
             <div style="text-align: center;">
               <a href="https://sytyat.bivytech.space" style="background-color: #10b981; color: #ffffff; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block;">Enter Learning Dashboard</a>
             </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+              <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">Reach out for onboarding support:</p>
+              <a href="https://chat.whatsapp.com/DxKd0O6QY7WKtVVPWXi2aY?mode=gi_t" style="color: #10b981; text-decoration: none; font-weight: 600; font-size: 14px;">Join Onboarding WhatsApp Group</a>
+            </div>
           </div>
 
           <p style="color: #94a3b8; font-size: 13px; text-align: center; margin-top: 32px;">
@@ -162,6 +177,60 @@ export async function sendPaymentConfirmationEmail(email: string, fullName: stri
     return { success: true, data };
   } catch (err) {
     console.error('Email caught error:', err);
+    return { success: false, error: err };
+  }
+}
+
+export async function sendDirectPaymentInviteEmail(email: string, fullName: string, program: string, paymentLink: string) {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'SYTYAT <admissions@sytyat.bivytech.space>',
+      to: [email],
+      subject: 'Complete Your Enrollment - SYTYAT',
+      html: `
+        <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; background-color: #ffffff;">
+          <div style="text-align: center; margin-bottom: 32px;">
+            <img src="https://sytyat.bivytech.space/logo.png" alt="SYTYAT Logo" style="width: 120px; height: auto;" />
+          </div>
+          
+          <div style="border: 1px solid #e2e8f0; border-radius: 24px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border-top: 4px solid #2563eb;">
+            <h2 style="color: #0f172a; margin-top: 0; font-size: 24px; font-weight: 800; text-align: center;">Ready to Start Your Tech Journey?</h2>
+            
+            <p style="color: #475569; font-size: 16px; line-height: 1.6; text-align: center;">
+              Hello <strong>${fullName}</strong>, we've prepared your enrollment for the <strong>${program}</strong>. 
+              Click the button below to complete your registration and secure your seat.
+            </p>
+
+            <div style="background-color: #f8fafc; border-radius: 16px; padding: 24px; margin: 32px 0; border: 1px solid #f1f5f9;">
+              <p style="margin: 0 0 16px 0; font-weight: 700; color: #1e293b; font-size: 14px; text-transform: uppercase;">Enrollment Details:</p>
+              <p style="color: #1e293b; font-size: 18px; font-weight: 800; margin: 8px 0;">Tuition: ₦20,000</p>
+              <p style="color: #475569; font-size: 14px;">This link will expire in 48 hours.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px;">
+              <a href="${paymentLink}" style="background-color: #2563eb; color: #ffffff; padding: 18px 36px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; font-size: 16px;">Complete Registration Now</a>
+            </div>
+
+            <div style="text-align: center; margin-top: 16px;">
+              <p style="color: #64748b; font-size: 14px; margin-bottom: 8px;">Need help with registration?</p>
+              <a href="https://chat.whatsapp.com/DxKd0O6QY7WKtVVPWXi2aY?mode=gi_t" style="color: #2563eb; text-decoration: none; font-weight: 600; font-size: 14px;">Talk to us on WhatsApp</a>
+            </div>
+
+            <p style="color: #64748b; font-size: 14px; text-align: center; margin-top: 24px;">
+              If you have any questions, feel free to reply to this email.
+            </p>
+          </div>
+
+          <p style="color: #94a3b8; font-size: 13px; text-align: center; margin-top: 32px;">
+            &copy; 2025 SYTYAT. Transforming futures through technology.
+          </p>
+        </div>
+      `,
+    });
+
+    if (error) return { success: false, error };
+    return { success: true, data };
+  } catch (err) {
     return { success: false, error: err };
   }
 }
