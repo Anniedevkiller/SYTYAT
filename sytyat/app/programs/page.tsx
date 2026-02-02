@@ -31,14 +31,10 @@ import {
   Target,
   Sparkles,
   Database,
-  Cpu,
-  Cloud,
-  Link as LinkIcon,
-  Gamepad2,
-  CodeXml,
   Layout,
   Megaphone,
   Server,
+
 } from "lucide-react"
 
 const bootcampTracks = [
@@ -54,13 +50,7 @@ const bootcampTracks = [
   { icon: CheckCircle2, name: "Quality Assurance (QA)", color: "bg-teal-500/10 text-teal-500" },
   { icon: Smartphone, name: "Mobile Development", color: "bg-indigo-500/10 text-indigo-500" },
   { icon: Lock, name: "Cybersecurity", color: "bg-slate-500/10 text-slate-500" },
-  { icon: Zap, name: "No-Code Development", color: "bg-yellow-500/10 text-yellow-500" },
-  { icon: PenTool, name: "Technical Writing", color: "bg-rose-500/10 text-rose-500" },
-  { icon: Cpu, name: "Artificial Intelligence", color: "bg-purple-500/10 text-purple-500" },
-  { icon: Cloud, name: "Cloud Computing", color: "bg-sky-500/10 text-sky-500" },
-  { icon: LinkIcon, name: "Blockchain Development", color: "bg-indigo-500/10 text-indigo-500" },
-  { icon: Gamepad2, name: "Game Development", color: "bg-green-500/10 text-green-500" },
-  { icon: CodeXml, name: "Data Science", color: "bg-blue-500/10 text-blue-500" },
+
   { icon: Layout, name: "Graphics Design", color: "bg-pink-500/10 text-pink-500" },
   { icon: Megaphone, name: "Social Media Management", color: "bg-orange-500/10 text-orange-500" },
   { icon: Server, name: "Database Administration", color: "bg-slate-500/10 text-slate-500" },
