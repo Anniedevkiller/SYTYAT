@@ -27,10 +27,6 @@ import {
   Video,
   Smartphone,
   Cpu,
-  Cloud,
-  Link as LinkIcon,
-  Gamepad2,
-  CodeXml,
   Layout,
   Megaphone,
   Server
@@ -39,10 +35,6 @@ import {
 export default function Home() {
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
-
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none opacity-50 translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[100px] pointer-events-none opacity-50 -translate-x-1/3 translate-y-1/3" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8">
@@ -224,13 +216,7 @@ export default function Home() {
               { name: "Quality Assurance (QA)", icon: CheckCircle2 },
               { name: "Mobile Development", icon: Smartphone },
               { name: "Cybersecurity", icon: Lock },
-              { name: "No-Code Development", icon: Zap },
-              { name: "Technical Writing", icon: PenTool },
-              { name: "Artificial Intelligence", icon: Cpu },
-              { name: "Cloud Computing", icon: Cloud },
-              { name: "Blockchain Development", icon: LinkIcon },
-              { name: "Game Development", icon: Gamepad2 },
-              { name: "Data Science", icon: CodeXml },
+
               { name: "Graphics Design", icon: Layout },
               { name: "Social Media Management", icon: Megaphone },
               { name: "Database Administration", icon: Server },
@@ -396,10 +382,10 @@ export default function Home() {
             <div className="space-y-6">
               {[
                 {
-                  date: "Feb 2025",
+                  date: "Feb 10, 2025",
                   event: "Cohort 2 Kickoff",
                   status: "Admissions Open",
-                  desc: "Start of our immersive 3-month intensive digital bootcamp.",
+                  desc: "Start of our immersive 3-month intensive digital bootcamp. Applications close Feb 24.",
                   type: "Active",
                   color: "primary"
                 },

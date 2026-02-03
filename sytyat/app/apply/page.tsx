@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Globe,
   Rocket,
@@ -25,6 +26,7 @@ import {
   Phone,
   Mail,
   School,
+  Calendar,
 } from "lucide-react"
 import axios from "axios"
 
@@ -32,7 +34,7 @@ const programs = [
   {
     id: "bootcamp",
     title: "3-Month Tech Bootcamp",
-    subtitle: "Cohort 2 — February 2025",
+    subtitle: "Cohort 2 — Starts February 10, 2025",
     icon: Rocket,
     color: "primary",
     regularPrice: 20000,
@@ -52,13 +54,7 @@ const programs = [
       "Quality Assurance (QA)",
       "Mobile Development",
       "Cybersecurity",
-      "No-Code Development",
-      "Technical Writing",
-      "Artificial Intelligence",
-      "Cloud Computing",
-      "Blockchain Development",
-      "Game Development",
-      "Data Science",
+
       "Graphics Design",
       "Social Media Management",
       "Database Administration",
@@ -126,7 +122,8 @@ export default function ApplyPage() {
     country: "",
     location: "",
     education: "",
-    track: "",
+    tracks: [] as string[],
+    whyJoin: "",
   })
 
   const selectedProgram = programs.find((p) => p.id === selectedProgramId)
@@ -136,6 +133,11 @@ export default function ApplyPage() {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
     }
   }, [selectedProgramId, flowType])
+
+  useEffect(() => {
+    // Reset tracks when program changes
+    setFormData(prev => ({ ...prev, tracks: [] }))
+  }, [selectedProgramId])
 
   useEffect(() => {
     // Fetch Countries
@@ -178,7 +180,7 @@ export default function ApplyPage() {
     fetchStates()
   }, [formData.country])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
 
     // Validation for phone number to only allow numbers and + 
@@ -191,12 +193,25 @@ export default function ApplyPage() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  const toggleTrack = (track: string) => {
+    setFormData(prev => ({
+      ...prev,
+      tracks: prev.tracks.includes(track)
+        ? prev.tracks.filter(t => t !== track)
+        : [...prev.tracks, track]
+    }))
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!selectedProgram || !flowType) return
 
+    if (formData.tracks.length === 0) {
+      alert("Please select at least one track.")
+      return
+    }
+
     // Phone number validation (International format)
-    // Basic international check: + plus optional digits, or just digits. Minimum 7 digits.
     const phoneRegex = /^(\+?\d{1,4})?\s?-?\d{6,14}$/
     if (!phoneRegex.test(formData.phone.replace(/\s/g, ""))) {
       alert("Please enter a valid phone number with your country code.")
@@ -210,10 +225,10 @@ export default function ApplyPage() {
         // SCHOLARSHIP FLOW: Submit directly to Google Sheets
         await axios.post("/api/scholarship/submit", {
           ...formData,
+          track: formData.tracks.join(", "),
           program: selectedProgram.title,
           flowType: "Scholarship Application"
         })
-        // Redirect to a specific success page or handle success
         window.location.href = "/payments/success?type=scholarship"
       } else {
         // DIRECT PAYMENT FLOW: Initialize Paystack
@@ -228,7 +243,8 @@ export default function ApplyPage() {
             { display_name: "Location", variable_name: "location", value: formData.location },
             { display_name: "Education", variable_name: "education", value: formData.education },
             { display_name: "Program", variable_name: "program", value: selectedProgram.title },
-            { display_name: "Track", variable_name: "track", value: formData.track },
+            { display_name: "Track", variable_name: "track", value: formData.tracks.join(", ") },
+            { display_name: "Why Join SYTYAT", variable_name: "why_join", value: formData.whyJoin },
             { display_name: "Flow Type", variable_name: "flow_type", value: "Direct Payment" },
           ],
         }
@@ -329,18 +345,14 @@ export default function ApplyPage() {
                         <>
                           {program.hasScholarship && (
                             <Button
-                              onClick={() => {
-                                setSelectedProgramId(program.id)
-                                setFlowType("apply")
-                              }}
-                              className={`w-full h-12 rounded-xl transition-all duration-300 ${isSelected && flowType === "apply"
-                                ? "bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]"
-                                : "bg-white border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary hover:text-primary"
-                                }`}
-                              variant={isSelected && flowType === "apply" ? "default" : "outline"}
+                              asChild
+                              className={`w-full h-auto py-3 rounded-xl transition-all duration-300 bg-white border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary hover:text-primary whitespace-normal`}
+                              variant="outline"
                             >
-                              <FileText className="mr-2 w-4 h-4" />
-                              Apply for Scholarship
+                              <Link href="/scholarship-exam">
+                                <FileText className="mr-2 w-4 h-4" />
+                                Apply for Scholarship
+                              </Link>
                             </Button>
                           )}
                           <Button
@@ -348,7 +360,7 @@ export default function ApplyPage() {
                               setSelectedProgramId(program.id)
                               setFlowType("pay")
                             }}
-                            className={`w-full h-12 rounded-xl transition-all duration-300 ${isSelected && flowType === "pay"
+                            className={`w-full h-auto py-3 rounded-xl transition-all duration-300 whitespace-normal ${isSelected && flowType === "pay"
                               ? "bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]"
                               : "bg-white border-2 border-border text-foreground hover:bg-muted hover:text-foreground"
                               }`}
@@ -386,6 +398,10 @@ export default function ApplyPage() {
 
             <Card className="border-2 border-primary/10 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
+              <div className="bg-primary/5 border-b border-primary/10 p-4 flex items-center justify-center gap-3">
+                <Calendar className="w-5 h-5 text-primary" />
+                <span className="text-sm font-bold text-primary">Cohort 2 Applications Close: February 24, 2025</span>
+              </div>
               <CardHeader className="text-center pt-10">
                 <CardTitle className="text-2xl">Application Form</CardTitle>
                 <CardDescription>
@@ -544,21 +560,20 @@ export default function ApplyPage() {
                       {selectedProgram.tracks.map((track) => (
                         <label
                           key={track}
-                          className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:bg-primary/5 ${formData.track === track
+                          className={`flex items-center p-4 rounded-xl border-2 cursor-pointer transition-all duration-200 hover:bg-primary/5 ${formData.tracks.includes(track)
                             ? "border-primary bg-primary/5 ring-1 ring-primary/20"
                             : "border-border"
                             }`}
                         >
                           <input
-                            type="radio"
+                            type="checkbox"
                             name="track"
                             value={track}
-                            className="mr-3 w-4 h-4 text-primary focus:ring-primary border-border"
-                            required
-                            checked={formData.track === track}
-                            onChange={handleInputChange}
+                            className="mr-3 w-4 h-4 text-primary focus:ring-primary border-border accent-primary"
+                            checked={formData.tracks.includes(track)}
+                            onChange={() => toggleTrack(track)}
                           />
-                          <span className={`${formData.track === track ? "font-bold text-primary" : "text-foreground"} text-sm`}>
+                          <span className={`${formData.tracks.includes(track) ? "font-bold text-primary" : "text-foreground"} text-sm`}>
                             {track}
                           </span>
                         </label>
@@ -566,10 +581,22 @@ export default function ApplyPage() {
                     </div>
                   </div>
 
+                  <div className="space-y-2 pt-4 border-t border-border/50">
+                    <Label htmlFor="whyJoin" className="text-lg font-bold">Why do you want to join SYTYAT? (Optional)</Label>
+                    <Textarea
+                      id="whyJoin"
+                      name="whyJoin"
+                      placeholder="Tell us about your motivation..."
+                      value={formData.whyJoin}
+                      onChange={handleInputChange}
+                      className="min-h-[100px]"
+                    />
+                  </div>
+
                   <div className="pt-8">
                     <Button
                       type="submit"
-                      className="w-full h-14 text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all group"
+                      className="w-full h-auto py-4 text-lg font-bold rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground shadow-xl shadow-primary/20 hover:shadow-2xl hover:scale-[1.01] active:scale-[0.99] transition-all group whitespace-normal"
                       disabled={isLoading}
                     >
                       {isLoading ? (
